@@ -4,15 +4,15 @@
         
         <p>Here are a few of our partner organizations:</p>
         <ul>
-
             <% organizations.forEach(organization => { %>
                 <li>
-                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %>< logo">
+                    <!-- Fixed the alt attribute below -->
+                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
                     <strong><%= organization.name %></strong>:
                     <br>
-                      <%= organization.description %>
+                    <%= organization.description %>
                     <br>
-                     <%= organization.contact_email %>
+                    <%= organization.contact_email %>
                 </li>
             <% }); %>
         </ul>
