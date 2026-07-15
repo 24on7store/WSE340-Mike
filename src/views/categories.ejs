@@ -1,15 +1,13 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
-    <!-- Put your page-specific content here -->
     <h2>Project categories are now available</h2>
     <p>Discover the different domains in which you can get involved:</p>
 
     <ul class="categories-list">
-        <li>Environmental</li>
-        <li>Educational</li>
-        <li>Community Service</li>
-        <li>Health and Wellness</li>
+        <% categories.forEach(category => { %>
+            <li class="category-item"><%= category.name %></li>
+        <% }); %>
     </ul>
 </main>
 <%- include('partials/footer') %>

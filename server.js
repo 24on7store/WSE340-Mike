@@ -6,6 +6,9 @@ import path from 'path';
 //Added on week 2
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
+import { getAllCategories } from './src/models/categories.js';
+import { getAllProjects } from './src/models/projects.js';
+
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -61,14 +64,28 @@ app.get('/organizations', async (req, res) => {
 });
 
 
+//app.get('/projects', async (req, res) => {
+    //const title = 'Service Projects';
+    //res.render('projects', { title });
+//});
+
 app.get('/projects', async (req, res) => {
-    const title = 'Service Projects';
-    res.render('projects', { title });
+    const projects = await getAllProjects();
+    const title = 'Upcoming Service Projects';
+
+    res.render('projects', { title, projects });
 });
 
+
+//app.get('/categories', async (req, res) => {
+    //const title = 'Project Categories';
+    //res.render('categories', { title });
+//});
 app.get('/categories', async (req, res) => {
+    const categories = await getAllCategories();
     const title = 'Project Categories';
-    res.render('categories', { title });
+
+    res.render('categories', { title, categories });
 });
 
 // Added on week 2
