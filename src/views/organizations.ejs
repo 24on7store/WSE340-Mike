@@ -1,21 +1,17 @@
+<!--UPDATED ON WEEK 03 #4 STEP 5-->
 <%- include('partials/header') %>
-    <main>
-        <h1><%= title %></h1>
-        
-        <p>Here are a few of our partner organizations:</p>
-        <ul>
-            <% organizations.forEach(organization => { %>
-                <li>
-                    <!-- Fixed the alt attribute below -->
-                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
-                    <strong><%= organization.name %></strong>:
-                    <br>
-                    <%= organization.description %>
-                    <br>
-                    <%= organization.contact_email %>
-                </li>
-            <% }); %>
-        </ul>
-    </main>
-    
+<main>
+    <h1><%= title %></h1>
+
+    <p>Here are a few of our partner organizations:</p>
+    <ul>
+        <% organizations.forEach(organization => { %>
+            <li>
+                <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                <a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a>: <%= organization.contact_email %>
+            </li>
+        <% }); %>
+    </ul>
+</main>
+
 <%- include('partials/footer') %>
