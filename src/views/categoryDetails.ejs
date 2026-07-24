@@ -1,0 +1,29 @@
+<!--//Added on week03 new feature step 4-->
+
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+
+    <% if (category) { %>
+        <h2>Projects in <%= category.name %></h2>
+        
+        <% if (projects.length > 0) { %>
+            <ul>
+                <% projects.forEach(project => { %>
+                    <li>
+                        <a href="/project/<%= project.project_id %>"><strong><%= project.title %></strong></a> - <%= project.location %>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No service projects found in this category right now.</p>
+        <% } %>
+
+    <% } else { %>
+        <h2>Category not found</h2>
+        <p>The requested category does not exist.</p>
+    <% } %>
+    
+    <p><a href="/categories">Return to all categories</a></p>
+</main>
+<%- include('partials/footer') %>

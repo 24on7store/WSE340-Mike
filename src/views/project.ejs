@@ -1,0 +1,21 @@
+<!--Added on week03 TEAM Activity Step 4 = STEP 8 ADD THE VIEW-->
+
+
+<%- include('partials/header') %>
+<main>
+    <% if (project) { %>
+        <h1><%= project.title %></h1>
+        <p><strong>Description:</strong> <%= project.description %></p>
+        <p><strong>Date:</strong> <%= new Date(project.date).toLocaleDateString() %></p>
+        <p><strong>Location:</strong> <%= project.location %></p>
+        
+        <p><strong>Partner Organization:</strong> 
+            <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
+        </p>
+    <% } else { %>
+        <h1>Project Not Found</h1>
+        <p>The requested service project details could not be found.</p>
+    <% } %>
+    <p><a href="/projects">← Back to Upcoming Projects</a></p>
+</main>
+<%- include('partials/footer') %>

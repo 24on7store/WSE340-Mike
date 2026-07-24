@@ -1,14 +1,19 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
-    
-    <h2>Upcoming Service Projects</h2>
+    <!--Commented on week03 TEAM activity Step 4 = STEP 8 -->
+    <!-- <h2>Upcoming Service Projects</h2> -->
+    <!--Added on week03 TEAM Activity Step 4 = STEP 8 -->
+    <p>Here are our next 5 upcoming service projects:</p>
+
     <ul>
         <% projects.forEach(project => { %>
             <li>
-                <strong><%= project.title %></strong> - <%= project.description %>
-                <br>
-                <small>📍 Location: <%= project.location %> | 📅 Date: <%= project.date.toLocaleDateString() %></small>
+                <!--Updated on week03 TEAM Activity Step 4 = STEP 8-->
+                <<!-- Clickable Project Link -->
+                <a href="/project/<%= project.project_id %>"><strong><%= project.title %></strong></a> 
+                (Organized by: <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>) 
+                - Located in <%= project.location %>
             </li>
         <% }); %>
     </ul>

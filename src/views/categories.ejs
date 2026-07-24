@@ -1,12 +1,20 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
-    <h2>Project categories are now available</h2>
-    <p>Discover the different domains in which you can get involved:</p>
+    <!--//Commented on week03 new feature step 4-->
+    <!-- <h2>Project categories are now available</h2>
+    <p>Discover the different domains in which you can get involved:</p> -->
+    <!--Added on week03 new feature step 4-->
+    <p>Browse projects by category:</p>
 
     <ul class="categories-list">
         <% categories.forEach(category => { %>
-            <li class="category-item"><%= category.name %></li>
+            <!--//Added on week03 new feature step 4-->
+            <li>
+                <!--  Category names are now functional links -->
+                <a href="/category/<%= category.category_id %>"><strong><%= category.name %></strong></a>
+            </li>
+            <!-- <li class="category-item"><%= category.name %></li> -->
         <% }); %>
     </ul>
 </main>
