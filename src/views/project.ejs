@@ -12,6 +12,22 @@
         <p><strong>Partner Organization:</strong> 
             <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
         </p>
+    <!-- Add after receiving feedback on week03 TC and NF 
+    Uses typeof to gracefully skip tags if the controller array arrives blank -->
+        <h3>Project Categories:</h3>
+        <div class="category-tags" style="display: flex; gap: 10px; margin-top: 10px;">
+            <% if (typeof tags !== 'undefined' && tags && tags.length > 0) { %>
+                <% tags.forEach(tag => { %>
+                    <a href="/category/<%= tag.category_id %>" style="background: #e0e0e0; padding: 5px 10px; border-radius: 4px; text-decoration: none; color: #333;">
+                        <%= tag.name %>
+                    </a>
+                <% }) %>
+            <% } else { %>
+                <p>No categories assigned to this project.</p>
+            <% } %>
+        </div>
+
+
     <% } else { %>
         <h1>Project Not Found</h1>
         <p>The requested service project details could not be found.</p>

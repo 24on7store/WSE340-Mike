@@ -8,7 +8,7 @@ const NUMBER_OF_UPCOMING_PROJECTS = 5;
 // // Import any needed model functions
 // import { getAllProjects } from '../models/projects.js';
 // //Added on week03 new feature step 2
-// import { getCategoriesByProjectId } from '../models/categories.js'; 
+import { getCategoriesByProjectId } from '../models/categories.js'; 
 
 
 // Renders the main upcoming service projects page
@@ -21,14 +21,19 @@ const showProjectsPage = async (req, res) => {
 const showProjectDetailsPage = async (req, res) => {
     const projectId = req.params.id;
     const project = await getProjectDetails(projectId);
+    //After receiving the feedback on week 03 TC and NF
+    //const title = project ? project.title : 'Project Details';
+    // FIXED: Fetch the tags array from the categories model using await
+    const tags = await getCategoriesByProjectId(projectId);
     const title = project ? project.title : 'Project Details';
 
-    res.render('project', { title, project });
+
+    res.render('project', { title, project, tags });
 };
 export { showProjectsPage, showProjectDetailsPage };
 
 
-//Commnented on week 03 TC and NF
+//Commented on week 03 TC and NF
 // // Define any controller functions
 // const showProjectsPage = async (req, res) => {
 //     const projects = await getAllProjects();
