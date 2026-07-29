@@ -1,22 +1,33 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
-    <!--//Commented on week03 new feature step 4-->
-    <!-- <h2>Project categories are now available</h2>
-    <p>Discover the different domains in which you can get involved:</p> -->
-    <!--Added on week03 new feature step 4-->
+    <h1>Service Categories</h1>
     <p>Browse projects by category:</p>
 
+    
     <ul class="categories-list">
         <% categories.forEach(category => { %>
-            <!--//Added on week03 new feature step 4-->
             <li>
-                <!--  Category names are now functional links -->
-                <a href="/category/<%= category.category_id %>"><strong><%= category.name %></strong></a>
+                <!-- Clickable title to browse projects -->
+                <a href="/category/<%= category.category_id %>">
+                    <%= category.name %>
+                </a>
+
+                <!--ADDED ON WEEK 04 AR-->
+        
+                <a href="/edit-category/<%= category.category_id %>" style="font-size: 0.85em; color: red; text-decoration: underline;">
+                        Edit
+                    </a>
+    
             </li>
-            <!-- <li class="category-item"><%= category.name %></li> -->
         <% }); %>
+    
+
+    <!--ADDED ON WEEK 04 AR-->
+    <p>
+        <a href="/new-category">
+            + Add a New Category
+        </a>
+    </p>
     </ul>
 </main>
 <%- include('partials/footer') %>
-

@@ -1,6 +1,5 @@
 <!--Added on week03 TEAM Activity Step 4 = STEP 8 ADD THE VIEW-->
 
-
 <%- include('partials/header') %>
 <main>
     <% if (project) { %>
@@ -27,6 +26,10 @@
             <% } %>
         </div>
 
+        <!-- FIXED LINK: Moved inside the if statement and changed to project.project_id -->
+        <p style="margin-top: 20px;">
+            <a href="/assign-categories/<%= project.project_id %>">Edit Categories</a>
+        </p>
 
     <% } else { %>
         <h1>Project Not Found</h1>
@@ -34,4 +37,8 @@
     <% } %>
     <p><a href="/projects">← Back to Upcoming Projects</a></p>
 </main>
+
+<!--ADDED ON WEEK04 TA-->
+
+
 <%- include('partials/footer') %>

@@ -1,3 +1,7 @@
+//Added on week04  #2 STEP 2
+import flash from './src/middleware/flash.js';
+//Added on week04  #2 STEP 1
+import session from 'express-session';
 
 import express from 'express';
 
@@ -26,6 +30,15 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+
+//Added on week04 #2 STEP 2
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+//Added on week04 #1 STEP 7
+// Allow Express to receive and process common POST data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //app.get('/', (req, res) => {
   //res.send('Hello from Express!');
 //});
@@ -44,6 +57,18 @@ app.set('view engine', 'ejs');
 
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
+
+// //Added on Week 04 #1 STEP 1
+// Set up session management
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
+}));
+//Still on week 04 #2 STEP 2
+// Use flash message middleware
+app.use(flash);
 
 // //Week 03 #1 STEP 1
 // //Middleware to log all incoming requests

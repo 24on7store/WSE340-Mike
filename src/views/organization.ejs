@@ -7,6 +7,8 @@
     <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
 
     <p>Description: <%= organizationDetails.description %></p>
+    <!--Added on week04 #4 STEP 1-->
+    <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
 
     <h3>Service Projects</h3>
     <ul>
@@ -14,5 +16,10 @@
             <li><a href="/project/<%= project.project_id %>"><%= project.title %></a></li>
         <% }) %>
     </ul>
+
+    <!-- Add this link on your project profile layout template -->
+
+
 </main>
-<%- include('partials/footer') %>
+
+
