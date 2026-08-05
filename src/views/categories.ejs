@@ -13,10 +13,13 @@
                 </a>
 
                 <!--ADDED ON WEEK 04 AR-->
-        
+                <!--Updated on week05 after receiving feedback-->
+                <% if (user && user.role_name === 'admin') { %>
                 <a href="/edit-category/<%= category.category_id %>" style="font-size: 0.85em; color: red; text-decoration: underline;">
                         Edit
-                    </a>
+                </a>
+                <% } %>
+                
     
             </li>
         <% }); %>
