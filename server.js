@@ -79,9 +79,25 @@ app.use((req, res, next) => {
   next (); // Pass control to the next middleware or route
 });
 //#1 STEP 2 - Middleware to make NODE_ENV available to all templates
+// //UPDATED ON WEEK 05 #4 STEP 5
+// app.use((req, res, next) => {
+//   res.locals.NODE_ENV = NODE_ENV;
+//   next();
+// });
+
+//Added on week05 #4 step 5
 app.use((req, res, next) => {
-  res.locals.NODE_ENV = NODE_ENV;
-  next();
+    res.locals.isLoggedIn = false;
+    if (req.session && req.session.user) {
+        res.locals.isLoggedIn = true;
+    }
+    //ADDED ON WEEK 05 TA STEP 9
+     // ADD THIS LINE: Expose the user object (including role_name) globally
+    res.locals.user = req.session.user || null;
+
+
+    res.locals.NODE_ENV = NODE_ENV;
+    next();
 });
 
 // Use the imported router to handle routes

@@ -28,7 +28,12 @@
 
         <!-- FIXED LINK: Moved inside the if statement and changed to project.project_id -->
         <p style="margin-top: 20px;">
-            <a href="/assign-categories/<%= project.project_id %>">Edit Categories</a>
+            <!-- Look for your existing edit and assign links and modify them -->
+            <% if (user && user.role_name === 'admin') { %>
+                <p><a href="/edit-project/<%= project.project_id %>">Edit Project Details</a></p>
+                <p><a href="/assign-categories/<%= project.project_id %>">Manage Project Categories</a></p>
+            <% } %>
+
         </p>
 
     <% } else { %>

@@ -1,0 +1,21 @@
+<!--Added on week05 #5 STEP2-->
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <!--ADDED ON WEEK05 AR-->
+    <% if (user && user.role_name === 'admin') { %>
+    <div class="admin-controls" style="margin-top: 20px; background: #f4f4f4; padding: 15px; border-radius: 5px;">
+        <h3>Administrative Tools</h3>
+        <p><a href="/admin/users" class="btn">👥 Manage Registered Users</a></p>
+    </div>
+<% } %>
+
+    <h2>Dashboard</h2>
+    <p>Name: <%= name %></p>
+    <p>Username: <%= email %></p>
+
+</main>
+
+<%- include('partials/footer') %>
