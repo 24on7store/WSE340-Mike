@@ -119,7 +119,13 @@ role_id INTEGER REFERENCES roles(role_id),
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
+-- Added on week 06
+CREATE TABLE project_volunteer (
+project_id INT REFERENCES project(project_id) ON DELETE CASCADE,
+user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (project_id, user_id)
+);
 
 -- ============================================
 -- 4. VERIFY RESULTS
@@ -130,6 +136,7 @@ SELECT * FROM project;
 SELECT * FROM project_category;
 SELECT * FROM roles;
 SELECT * FROM users;
+SELECT * FROM project_volunteer;
 
 
 
