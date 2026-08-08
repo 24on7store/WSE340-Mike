@@ -18,4 +18,20 @@
 
 </main>
 
+<!--ADDED ON WEEK06-->
+<h2>My Volunteered Service Projects</h2>
+<% if (volunteeredProjects && volunteeredProjects.length > 0) { %>
+    <ul class="volunteered-list">
+        <% volunteeredProjects.forEach(p => { %>
+            <li style="margin-bottom: 12px;">
+                <a href="/project/<%= p.project_id %>"><strong><%= p.title %></strong></a> - <%= p.location %>
+                <a href="/project/<%= p.project_id %>/unvolunteer?from=dashboard" style="color: red; margin-left: 15px; font-size: 0.9em;">[Cancel Registration]</a>
+            </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>You haven't signed up to volunteer for any projects yet.</p>
+<% } %>
+
+
 <%- include('partials/footer') %>

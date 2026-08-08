@@ -12,7 +12,10 @@ import {
     //Added on week 05 TA STEP 8
     requireRole,
     //ADDED ON WEEK05 AR
-    showAllUsersPage
+    showAllUsersPage,
+    //ADDED ON WEEK06
+    processVolunteerSignup,
+    processCancelVolunteership
 } from './controllers/users.js';
 //Week03 #3 STEP 4
 import express from 'express';
@@ -168,6 +171,10 @@ router.get('/logout', processLogout);
 // Admin-Only Users Management Roster
 router.get('/admin/users', requireRole('admin'), showAllUsersPage);
 
+//ADDED ON WEEK06
+// Volunteering Lifecycle Routes (Protected by requireLogin)
+router.get('/project/:projectId/volunteer', requireLogin, processVolunteerSignup);
+router.get('/project/:projectId/unvolunteer', requireLogin, processCancelVolunteership);
 
 
 export default router;

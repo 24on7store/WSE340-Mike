@@ -1,3 +1,9 @@
+//Added on week06
+import {
+    isUserVolunteering
+    //getUserVolunteeredProjects
+} from '../models/users.js';
+
 //Added on week04 #5 STEP7
 import { body, validationResult } from 'express-validator';
 //Added on week04 #5 STEP2
@@ -117,19 +123,61 @@ const showProjectsPage = async (req, res) => {
     const title = 'Upcoming Service Projects';
     res.render('projects', { title, projects });
 };
-// Renders individual service project profile pages
+
+// // //COMMENTED ON WEEK06
+// // Renders individual service project profile pages
+// const showProjectDetailsPage = async (req, res) => {
+//     const projectId = req.params.id;
+//     const project = await getProjectDetails(projectId);
+//     //After receiving the feedback on week 03 TC and NF
+//     //const title = project ? project.title : 'Project Details';
+//     // FIXED: Fetch the tags array from the categories model using await
+//     const tags = await getCategoriesByProjectId(projectId);
+//     const title = project ? project.title : 'Project Details';
+
+//     res.render('project', { title, project, tags });
+// };
+
+//ADDED ON WEEK06
 const showProjectDetailsPage = async (req, res) => {
-    const projectId = req.params.id;
-    const project = await getProjectDetails(projectId);
-    //After receiving the feedback on week 03 TC and NF
-    //const title = project ? project.title : 'Project Details';
-    // FIXED: Fetch the tags array from the categories model using await
-    const tags = await getCategoriesByProjectId(projectId);
-    const title = project ? project.title : 'Project Details';
+    // 1. Match your original parameter variable name
+    const projectId = req.params.id; 
 
+    try {
+        // 2. Fetch your original database records and tags
+        const project = await getProjectDetails(projectId);
+        const tags = await getCategoriesByProjectId(projectId);
+        
+        // Establish your fallback page title matching your original fallback check
+        const title = project ? project.title : 'Project Details';
 
-    res.render('project', { title, project, tags });
+        // 3. Set a default value so your template view file never crashes
+        let isVolunteering = false;
+
+        // 4. If a user session is active, check their database status
+        if (req.session && req.session.user) {
+            isVolunteering = await isUserVolunteering(projectId, req.session.user.user_id);
+        }
+
+        // 5. Render your layout file passing down ALL variable expectations
+        res.render('project', {
+            title: title,
+            project: project, 
+            projectDetails: project, // Keeps your new volunteer HTML block happy on line 54
+            tags: tags,
+            isVolunteering: isVolunteering
+        });
+
+    } catch (error) {
+        console.error('Error loading project page:', error);
+        res.redirect('/projects');
+    }
 };
+
+
+
+
+
 export {
     showNewProjectForm,
     processNewProjectForm,

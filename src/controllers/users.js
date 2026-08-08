@@ -6,7 +6,12 @@ import {
     //Added on week05 #4 STEP 1
     authenticateUser,
     //ADDED ON WEEK05 AR
-    getAllUsers
+    getAllUsers,
+    //Added on week 06
+    volunteerForProject,
+    removeVolunteership,
+    isUserVolunteering,
+    getUserVolunteeredProjects
 } from '../models/users.js';
 
 const showUserRegistrationForm = (req, res) => {
@@ -85,15 +90,18 @@ const requireLogin = (req, res, next) => {
     next();
 };
 
-//Added on week05 #5 STEP3
-const showDashboard = (req, res) => {
-    const user = req.session.user;
-    res.render('dashboard', { 
-        title: 'Dashboard',
-        name: user.name,
-        email: user.email
-    });
-};
+// //Added on week05 #5 STEP3
+// //Commented on week06
+// const showDashboard = (req, res) => {
+//     const user = req.session.user;
+//     res.render('dashboard', { 
+//         title: 'Dashboard',
+//         name: user.name,
+//         email: user.email
+//     });
+// };
+
+
 //Added on week 05 TA STEP 7
 const requireRole = (role) => {
     return (req, res, next) => {
@@ -114,6 +122,27 @@ const requireRole = (role) => {
     };
 };
 
+//ADDED ON WEEK06 
+const showDashboard = async (req, res) => {
+    const user = req.session.user;
+    try {
+        // Fetch projects this specific user has joined
+        const volunteeredProjects = await getUserVolunteeredProjects(user.user_id);
+
+        res.render('dashboard', { 
+            title: 'Dashboard',
+            name: user.name,
+            email: user.email,
+            volunteeredProjects: volunteeredProjects // Pass the list here
+        });
+    } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        res.redirect('/');
+    }
+};
+
+
+
 //ADDED ON WEEK05 AR
 const showAllUsersPage = async (req, res) => {
     try {
@@ -126,6 +155,34 @@ const showAllUsersPage = async (req, res) => {
         console.error('Error fetching users:', error);
         req.flash('error', 'Could not load user roster.');
         res.redirect('/dashboard');
+    }
+};
+
+//ADDED ON WEEK06
+const processVolunteerSignup = async (req, res) => {
+    const { projectId } = req.params;
+    const userId = req.session.user.user_id;
+    try {
+        await volunteerForProject(projectId, userId);
+        req.flash('success', 'Thank you for volunteering!');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Volunteer signup error:', error);
+        res.redirect(`/project/${projectId}`);
+    }
+};
+
+const processCancelVolunteership = async (req, res) => {
+    const { projectId } = req.params;
+    const userId = req.session.user.user_id;
+    const redirectTarget = req.query.from === 'dashboard' ? '/dashboard' : `/project/${projectId}`;
+    try {
+        await removeVolunteership(projectId, userId);
+        req.flash('success', 'Your volunteer registration has been removed.');
+        res.redirect(redirectTarget);
+    } catch (error) {
+        console.error('Cancel volunteering error:', error);
+        res.redirect(redirectTarget);
     }
 };
 
@@ -144,5 +201,8 @@ export {
     //Added on week05 TA STEP 7
     requireRole,
     //ADDED ON WEEK05 AR
-    showAllUsersPage
+    showAllUsersPage,
+    //ADDED ON WEEK06
+    processVolunteerSignup,
+    processCancelVolunteership
 };

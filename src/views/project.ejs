@@ -45,5 +45,21 @@
 
 <!--ADDED ON WEEK04 TA-->
 
+<!--ADDED ON WEEEK06-->
+<!-- Volunteering Action Panel Section -->
+<div class="volunteer-panel" style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; background: #fafafa;">
+    <% if (isLoggedIn) { %>
+        <% if (isVolunteering) { %>
+            <p style="color: green; font-weight: bold;">✅ You are volunteering for this project!</p>
+            <p><a href="/project/<%= projectDetails.project_id %>/unvolunteer" class="btn-link" style="color: red;">Remove myself as a volunteer</a></p>
+        <% } else { %>
+            <p><a href="/project/<%= projectDetails.project_id %>/volunteer" class="btn" style="background: #28a745; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px;"> Volunteer for this Project</a></p>
+        <% } %>
+    <% } else { %>
+        <p><em>Please <a href="/login">login</a> to register as a volunteer for this service project.</em></p>
+    <% } %>
+</div>
+
+
 
 <%- include('partials/footer') %>

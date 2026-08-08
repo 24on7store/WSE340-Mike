@@ -79,10 +79,54 @@ const getAllUsers = async () => {
 };
 
 
+// Added on week 06
+const volunteerForProject = async (projectId, userId) => {
+    const query = `
+        INSERT INTO project_volunteer (project_id, user_id) 
+        VALUES ($1, $2) ON CONFLICT DO NOTHING
+    `;
+    await db.query(query, [projectId, userId]);
+};
+
+const removeVolunteership = async (projectId, userId) => {
+    const query = `
+        DELETE FROM project_volunteer 
+        WHERE project_id = $1 AND user_id = $2
+    `;
+    await db.query(query, [projectId, userId]);
+};
+
+const isUserVolunteering = async (projectId, userId) => {
+    const query = `
+        SELECT 1 FROM project_volunteer 
+        WHERE project_id = $1 AND user_id = $2
+    `;
+    const result = await db.query(query, [projectId, userId]);
+    return result.rows.length > 0;
+};
+
+const getUserVolunteeredProjects = async (userId) => {
+    const query = `
+        SELECT p.project_id, p.title, p.location, p.date 
+        FROM project p
+        JOIN project_volunteer pv ON p.project_id = pv.project_id
+        WHERE pv.user_id = $1
+        ORDER BY p.date ASC
+    `;
+    const result = await db.query(query, [userId]);
+    return result.rows;
+};
+
+
 export { 
     createUser,
     //Added on week05 #4 STEP 1
     authenticateUser,
     //ADDED ON WEEK 05  AR
-    getAllUsers
+    getAllUsers,
+    //Added on week 06
+    volunteerForProject,
+    removeVolunteership,
+    isUserVolunteering,
+    getUserVolunteeredProjects
 };
